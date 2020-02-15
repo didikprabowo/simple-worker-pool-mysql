@@ -49,6 +49,7 @@ func NewMySQL() (MySQL, error) {
 	return MySQL{dbCon: db}, nil
 }
 
+// Create Job
 func readData(jobs chan<- int) {
 	for i := 0; i <= maxJob; i++ {
 		jobs <- i
@@ -56,7 +57,7 @@ func readData(jobs chan<- int) {
 	close(jobs)
 }
 
-// Create Worker and Job
+// Create Worker Pool
 func worker(jobs <-chan int, result chan<- int) {
 	for i := 1; i <= maxWorker; i++ {
 		wg.Add(1)
